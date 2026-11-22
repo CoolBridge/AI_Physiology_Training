@@ -1,0 +1,1506 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI in Physiology — FSI-AIBR × SPAN Specialist Training Portal</title>
+  <meta name="description" content="AI in Physiology: From Physiological Data to Intelligent Biomedical Applications. A three-day practical specialist training proposed by FSI-AIBR in collaboration with SPAN." />
+
+  <!-- Editorial Typography: Newsreader, Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            alabaster: '#FAF9F6',
+            graphite: '#171A1D',
+            charcoal: '#1F2429',
+            crimson: '#9E1B32',
+            crimsonDark: '#7D1427',
+            slateink: '#4A5568',
+            hairline: '#DCD9D0',
+            hairlineDark: '#C8C4B8',
+          },
+          fontFamily: {
+            serif: ['Newsreader', 'Georgia', 'serif'],
+            sans: ['Plus Jakarta Sans', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    body {
+      background-color: #FAF9F6;
+      color: #171A1D;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Subtle ECG Lead II Trace Animation */
+    @keyframes ecgSweep {
+      0% {
+        stroke-dashoffset: 960;
+      }
+      100% {
+        stroke-dashoffset: 0;
+      }
+    }
+
+    .ecg-trace {
+      stroke-dasharray: 960;
+      stroke-dashoffset: 960;
+      animation: ecgSweep 4.8s linear infinite;
+    }
+
+    /* Custom institutional focus ring */
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: #9E1B32 !important;
+      box-shadow: 0 0 0 1px #9E1B32;
+    }
+
+    /* Smooth drawer reveal */
+    .drawer-panel {
+      transition: all 0.25s ease-in-out;
+    }
+  </style>
+</head>
+<body class="bg-alabaster text-graphite selection:bg-crimson selection:text-white">
+
+  <!-- =====================================================================
+       INSTITUTIONAL TOP UTILITY & NAVIGATION BAR
+       ===================================================================== -->
+  <header id="top" class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-hairline">
+    <!-- Top Institutional Breadcrumb Strip -->
+    <div class="bg-graphite text-gray-300 border-b border-white/10">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-1.5 flex flex-wrap items-center justify-between gap-2 text-xs font-mono">
+        <div class="flex items-center gap-2">
+          <span class="inline-block w-2 h-2 bg-crimson"></span>
+          <span class="tracking-wider uppercase text-white font-semibold">FSI-AIBR</span>
+          <span class="text-gray-500">/</span>
+          <span class="text-gray-300">Femi Samson Institute of Artificial Intelligence &amp; Biomedical Research</span>
+        </div>
+        <div class="flex items-center gap-4">
+          <a href="https://www.fsi-aibr.org/" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">
+            fsi-aibr.org ↗
+          </a>
+          <span class="text-gray-600">|</span>
+          <a href="https://taupe-arithmetic-81e5a2.netlify.app/" target="_blank" rel="noopener noreferrer" class="text-red-300 hover:text-white transition-colors">
+            Career Intelligence ↗
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Sticky Navigation -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+      <a href="#top" class="flex items-center gap-3 group">
+        <!-- Official FSI-AIBR Circular Emblem with inline SVG badge fallback -->
+        <div class="w-11 h-11 rounded-full overflow-hidden shrink-0 flex items-center justify-center bg-graphite border border-hairlineDark group-hover:border-crimson transition-colors">
+          <img
+            data-fsi-logo
+            src="/assets/fsi_logo.png"
+            alt="FSI-AIBR Official Emblem"
+            class="w-full h-full object-cover"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+          />
+          <svg viewBox="0 0 120 120" class="w-full h-full hidden" aria-label="FSI-AIBR Circular Emblem">
+            <defs>
+              <linearGradient id="fsiBgGrad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#0B2239" />
+                <stop offset="100%" stop-color="#133B5C" />
+              </linearGradient>
+              <linearGradient id="fsiDnaGreen" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#2D6A4F" />
+                <stop offset="100%" stop-color="#52B788" />
+              </linearGradient>
+              <linearGradient id="fsiPlate" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#9BA8B4" />
+                <stop offset="50%" stop-color="#DCE3E8" />
+                <stop offset="100%" stop-color="#9BA8B4" />
+              </linearGradient>
+            </defs>
+            <circle cx="60" cy="60" r="58" fill="url(#fsiBgGrad)" stroke="#CBD5E1" stroke-width="3" />
+            <circle cx="60" cy="52" r="40" fill="#F8FAFC" />
+            <path d="M35 36 Q48 28 52 42 T40 58 T48 74" fill="none" stroke="#1E4E68" stroke-width="5" opacity="0.85" />
+            <path d="M72 30 Q84 40 78 52 T86 68 T72 78" fill="none" stroke="#1E4E68" stroke-width="5" opacity="0.85" />
+            <circle cx="60" cy="52" r="40" fill="none" stroke="#64748B" stroke-width="0.8" />
+            <ellipse cx="60" cy="52" rx="22" ry="40" fill="none" stroke="#64748B" stroke-width="0.7" />
+            <line x1="20" y1="52" x2="100" y2="52" stroke="#64748B" stroke-width="0.7" />
+            <path d="M53 16 C68 28, 46 42, 62 56 C72 65, 50 76, 60 88" fill="none" stroke="url(#fsiDnaGreen)" stroke-width="4.5" stroke-linecap="round" />
+            <path d="M67 16 C52 28, 74 42, 58 56 C48 65, 70 76, 60 88" fill="none" stroke="#0F2942" stroke-width="4.5" stroke-linecap="round" />
+            <line x1="55" y1="26" x2="65" y2="26" stroke="#D97706" stroke-width="2" />
+            <line x1="54" y1="38" x2="66" y2="38" stroke="#D97706" stroke-width="2" />
+            <line x1="55" y1="50" x2="65" y2="50" stroke="#D97706" stroke-width="2" />
+            <line x1="54" y1="62" x2="66" y2="62" stroke="#D97706" stroke-width="2" />
+            <line x1="55" y1="74" x2="65" y2="74" stroke="#D97706" stroke-width="2" />
+            <path d="M12 78 H108 A52 52 0 0 1 12 78 Z" fill="url(#fsiPlate)" stroke="#475569" stroke-width="1.2" />
+            <text x="60" y="95" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-weight="700" font-size="14" letter-spacing="1.2" fill="#0F172A">FSAI-BR</text>
+          </svg>
+        </div>
+        <div>
+          <span class="block font-serif font-bold text-lg leading-tight text-graphite">
+            AI in Physiology
+          </span>
+          <span class="block font-mono text-[11px] uppercase tracking-wider text-slateink">
+            FSI-AIBR Specialist Training Track
+          </span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden lg:flex items-center gap-7 text-sm font-medium text-slateink">
+        <a href="#overview" class="hover:text-graphite transition-colors">Overview</a>
+        <a href="#curriculum" class="hover:text-graphite transition-colors">Curriculum</a>
+        <a href="#keynote-archive" class="hover:text-graphite transition-colors">Keynote PDF</a>
+        <a href="#governance" class="hover:text-graphite transition-colors">Fees &amp; Governance</a>
+        <a href="https://taupe-arithmetic-81e5a2.netlify.app/" target="_blank" rel="noopener noreferrer" class="hover:text-graphite transition-colors">Career Intelligence ↗</a>
+        <a href="#eoi-portal" class="px-4 py-2 bg-crimson hover:bg-crimsonDark text-white font-semibold transition-colors">
+          Register EOI
+        </a>
+      </nav>
+
+      <!-- Mobile Menu Toggle -->
+      <div class="flex items-center gap-2 lg:hidden">
+        <a href="#eoi-portal" class="px-3 py-1.5 bg-crimson text-white text-xs font-semibold">
+          Register EOI
+        </a>
+        <button id="mobileMenuBtn" type="button" aria-label="Toggle Menu" class="p-2 border border-hairlineDark text-graphite hover:bg-alabaster">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobileMenuDrawer" class="hidden lg:hidden bg-white border-t border-hairline px-4 py-4 space-y-3 text-sm font-medium">
+      <a href="#overview" class="block py-1.5 text-graphite hover:text-crimson">01. Programme Overview</a>
+      <a href="#curriculum" class="block py-1.5 text-graphite hover:text-crimson">02. 3-Day Curriculum</a>
+      <a href="#keynote-archive" class="block py-1.5 text-graphite hover:text-crimson">03. Keynote PDF Archive</a>
+      <a href="#governance" class="block py-1.5 text-graphite hover:text-crimson">04. Fees &amp; Governance</a>
+      <a href="https://taupe-arithmetic-81e5a2.netlify.app/" target="_blank" rel="noopener noreferrer" class="block py-1.5 text-graphite hover:text-crimson">05. Career Intelligence ↗</a>
+      <a href="#eoi-portal" class="block py-2 text-center bg-crimson text-white font-semibold">Register EOI</a>
+    </div>
+  </header>
+
+  <!-- =====================================================================
+       SECTION 01: INSTITUTIONAL HERO & THREE-BUTTON ACTION BAR
+       ===================================================================== -->
+  <section class="bg-graphite text-alabaster border-b border-charcoal">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20 lg:py-24">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <!-- Left Editorial Thesis & Three-Button Action Bar -->
+        <div class="lg:col-span-8 space-y-6">
+          <div class="inline-flex items-center gap-2.5 px-3 py-1.5 bg-white/5 border border-white/15 font-mono text-xs tracking-wider uppercase text-red-300">
+            <span class="w-1.5 h-1.5 bg-crimson"></span>
+            <span>FSI-AIBR × SPAN Collaboration Proposal • Cohort 01</span>
+          </div>
+
+          <h1 class="font-serif text-4xl sm:text-5xl lg:text-[54px] font-bold leading-[1.08] tracking-tight text-white">
+            AI in Physiology: From Physiological Data to Intelligent Biomedical Applications
+          </h1>
+
+          <p class="text-lg sm:text-xl text-gray-300 leading-relaxed max-w-3xl font-normal">
+            An applied three-day training track designed to bridge foundational human physiology with computational data analytics, biomedical signal processing (ECG &amp; EEG), and introductory machine learning workflows.
+          </p>
+
+          <!-- Three-Button Institutional Hero Action Bar -->
+          <div class="pt-3 flex flex-wrap items-stretch sm:items-center gap-3.5">
+            <!-- Primary CTA -->
+            <a href="#eoi-portal" class="inline-flex items-center justify-center px-6 py-3.5 bg-crimson hover:bg-crimsonDark text-white font-semibold text-sm tracking-wide transition-colors border border-crimson">
+              Register Expression of Interest
+              <span class="ml-2 font-mono">→</span>
+            </a>
+
+            <!-- Secondary CTA: Keynote PDF Download -->
+            <a href="/assets/The-Physiologist-Reimagined-Daniel-Onimisi.pdf" download="The-Physiologist-Reimagined-Daniel-Onimisi.pdf" onclick="handlePdfDownload(event)" class="inline-flex items-center justify-center px-5 py-3.5 bg-white/5 hover:bg-white/10 text-alabaster border border-white/25 hover:border-white/50 font-semibold text-sm tracking-wide transition-colors">
+              <svg class="w-4 h-4 mr-2 text-red-300 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+              </svg>
+              Download Keynote Slides (PDF)
+            </a>
+
+            <!-- Tertiary CTA: Career Intelligence Platform -->
+            <a href="https://taupe-arithmetic-81e5a2.netlify.app/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-5 py-3.5 bg-transparent hover:bg-white/5 text-gray-200 hover:text-white border border-white/20 hover:border-white/40 font-semibold text-sm tracking-wide transition-colors">
+              Explore Career Intelligence
+              <span class="ml-1.5 font-mono text-red-300">↗</span>
+            </a>
+          </div>
+
+          <!-- Key Cohort Specifications Strip -->
+          <div class="pt-6 border-t border-white/15 grid grid-cols-1 sm:grid-cols-3 gap-6">
+            <div>
+              <span class="block font-mono text-[11px] uppercase tracking-wider text-gray-400">Programme Format</span>
+              <span class="block mt-1 font-semibold text-sm text-white">3-Day Practical Specialist Track</span>
+            </div>
+            <div>
+              <span class="block font-mono text-[11px] uppercase tracking-wider text-gray-400">Participation Fee Tiers</span>
+              <span class="block mt-1 font-semibold text-sm text-white">SPAN: ₦7,500 • Non-SPAN: ₦15,000</span>
+            </div>
+            <div>
+              <span class="block font-mono text-[11px] uppercase tracking-wider text-gray-400">Entry Requirement</span>
+              <span class="block mt-1 font-semibold text-sm text-white">Physiology Background <span class="text-xs font-normal text-gray-400">(No prior coding needed)</span></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Scientific Artifact: Physiological Signal Monitor -->
+        <div class="lg:col-span-4 bg-charcoal border border-white/15 p-6">
+          <div class="flex items-center justify-between pb-3 border-b border-white/10 font-mono text-xs">
+            <span class="text-red-300 font-semibold">SIGNAL_LAB // LEAD_II</span>
+            <span class="text-gray-400">FS: 250 HZ</span>
+          </div>
+
+          <!-- Crisp SVG ECG Waveform -->
+          <div class="my-5 bg-graphite border border-white/10 p-4">
+            <svg viewBox="0 0 420 120" class="w-full h-28 overflow-visible" aria-label="Lead II Electrocardiogram Waveform">
+              <g stroke="#262B31" stroke-width="1">
+                <line x1="0" y1="30" x2="420" y2="30" />
+                <line x1="0" y1="60" x2="420" y2="60" />
+                <line x1="0" y1="90" x2="420" y2="90" />
+                <line x1="70" y1="0" x2="70" y2="120" />
+                <line x1="140" y1="0" x2="140" y2="120" />
+                <line x1="210" y1="0" x2="210" y2="120" />
+                <line x1="280" y1="0" x2="280" y2="120" />
+                <line x1="350" y1="0" x2="350" y2="120" />
+              </g>
+              <path
+                d="M 0,72 L 28,72 Q 35,62 42,72 L 54,72 L 59,80 L 66,18 L 73,94 L 79,72 L 94,72 Q 106,54 118,72 L 154,72 Q 161,62 168,72 L 180,72 L 185,80 L 192,18 L 199,94 L 205,72 L 220,72 Q 232,54 244,72 L 280,72 Q 287,62 294,72 L 306,72 L 311,80 L 318,18 L 325,94 L 331,72 L 346,72 Q 358,54 370,72 L 420,72"
+                fill="none"
+                stroke="#9E1B32"
+                stroke-width="2.2"
+              />
+              <path
+                class="ecg-trace"
+                d="M 0,72 L 28,72 Q 35,62 42,72 L 54,72 L 59,80 L 66,18 L 73,94 L 79,72 L 94,72 Q 106,54 118,72 L 154,72 Q 161,62 168,72 L 180,72 L 185,80 L 192,18 L 199,94 L 205,72 L 220,72 Q 232,54 244,72 L 280,72 Q 287,62 294,72 L 306,72 L 311,80 L 318,18 L 325,94 L 331,72 L 346,72 Q 358,54 370,72 L 420,72"
+                fill="none"
+                stroke="#F87171"
+                stroke-width="2.5"
+              />
+              <circle cx="66" cy="18" r="3" fill="#F87171" />
+              <circle cx="192" cy="18" r="3" fill="#F87171" />
+              <circle cx="318" cy="18" r="3" fill="#F87171" />
+            </svg>
+          </div>
+
+          <div class="space-y-2.5 text-xs font-mono text-gray-300">
+            <div class="flex justify-between">
+              <span class="text-gray-400">BIOLOGICAL LAYER</span>
+              <span>Autonomic &amp; Cardiac Rhythm</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-400">COMPUTATIONAL STEP</span>
+              <span>R-Peak &amp; HRV Extraction</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-400">FACILITATOR</span>
+              <span class="text-white">Daniel Onimisi (FSI-AIBR)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       SECTION 02: PROGRAMME RATIONALE & CAPABILITY BRIDGE
+       ===================================================================== -->
+  <section id="overview" class="py-16 sm:py-20 border-b border-hairline">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl">
+        <span class="font-mono text-xs font-bold uppercase tracking-widest text-crimson">
+          01 / Rationale &amp; Positioning
+        </span>
+        <h2 class="mt-2 font-serif text-3xl sm:text-4xl font-bold text-graphite leading-tight">
+          Moving from Biological Literacy to Computational Capability
+        </h2>
+        <p class="mt-4 text-base sm:text-lg text-slateink leading-relaxed">
+          Physiology graduates possess deep training in systems thinking, homeostasis, experimental measurement, and human function. Yet most lack structured pathways to translate that scientific foundation into Python data workflows, signal analytics, and biomedical AI applications.
+        </p>
+      </div>
+
+      <!-- 3-Column Hairline Architectural Grid -->
+      <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8 pt-8 border-t border-hairlineDark">
+        <div class="border-t-2 border-crimson pt-5">
+          <span class="font-mono text-xs font-bold text-crimson">PILLAR 01</span>
+          <h3 class="mt-2 font-serif text-xl font-bold text-graphite">
+            Mechanism-First AI Literacy
+          </h3>
+          <p class="mt-2 text-sm text-slateink leading-relaxed">
+            Understand how machine learning models interpret physiological variables—and where algorithmic predictions fail without biological context and data validation.
+          </p>
+        </div>
+
+        <div class="border-t-2 border-graphite pt-5">
+          <span class="font-mono text-xs font-bold text-graphite">PILLAR 02</span>
+          <h3 class="mt-2 font-serif text-xl font-bold text-graphite">
+            Hands-On Physiological Datasets
+          </h3>
+          <p class="mt-2 text-sm text-slateink leading-relaxed">
+            Work directly with structured clinical records, electrocardiogram (ECG) waveforms, heart-rate variability (HRV) series, and electroencephalogram (EEG) features.
+          </p>
+        </div>
+
+        <div class="border-t-2 border-crimson pt-5">
+          <span class="font-mono text-xs font-bold text-crimson">PILLAR 03</span>
+          <h3 class="mt-2 font-serif text-xl font-bold text-graphite">
+            Demonstrable Portfolio Proof
+          </h3>
+          <p class="mt-2 text-sm text-slateink leading-relaxed">
+            Conclude the three-day cohort with a small, documented biomedical data application that serves as tangible evidence for research, internships, or industry roles.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       SECTION 03: INTERACTIVE THREE-DAY SPECIALIST SYLLABUS & TWO-TIER FEES
+       ===================================================================== -->
+  <section id="curriculum" class="py-16 sm:py-20 bg-white border-b border-hairline">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-hairlineDark">
+        <div>
+          <span class="font-mono text-xs font-bold uppercase tracking-widest text-crimson">
+            02 / Proposed Curriculum Architecture
+          </span>
+          <h2 class="mt-2 font-serif text-3xl sm:text-4xl font-bold text-graphite">
+            Three-Day Specialist Progression
+          </h2>
+        </div>
+
+        <!-- Interactive Day Filter Tabs -->
+        <div class="inline-flex border border-hairlineDark bg-alabaster p-1 self-start" role="group" aria-label="Filter syllabus by day">
+          <button type="button" data-day-filter="all" aria-pressed="true" class="day-tab px-3.5 py-1.5 text-xs font-mono font-semibold bg-graphite text-white transition-colors">
+            All 3 Days
+          </button>
+          <button type="button" data-day-filter="1" aria-pressed="false" class="day-tab px-3.5 py-1.5 text-xs font-mono font-semibold bg-white text-graphite hover:text-crimson transition-colors">
+            Day 01
+          </button>
+          <button type="button" data-day-filter="2" aria-pressed="false" class="day-tab px-3.5 py-1.5 text-xs font-mono font-semibold bg-white text-graphite hover:text-crimson transition-colors">
+            Day 02
+          </button>
+          <button type="button" data-day-filter="3" aria-pressed="false" class="day-tab px-3.5 py-1.5 text-xs font-mono font-semibold bg-white text-graphite hover:text-crimson transition-colors">
+            Day 03
+          </button>
+        </div>
+      </div>
+
+      <!-- Syllabus Modules Grid -->
+      <div class="mt-10 grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- DAY 01 -->
+        <article data-day-card="1" class="border border-hairlineDark bg-alabaster p-7 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between pb-4 border-b border-hairline">
+              <span class="font-mono text-xs font-bold uppercase tracking-wider text-crimson">DAY 01 • FOUNDATIONS</span>
+              <span class="font-mono text-xs text-slateink">MODULE 01</span>
+            </div>
+            <h3 class="mt-4 font-serif text-2xl font-bold text-graphite leading-snug">
+              Understanding AI in Physiological Science
+            </h3>
+            <ul class="mt-5 space-y-3 text-sm text-slateink">
+              <li class="flex items-start gap-2.5">
+                <span class="font-mono text-crimson font-bold">—</span>
+                <span>Foundations of artificial intelligence and machine learning in life sciences.</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="font-mono text-crimson font-bold">—</span>
+                <span>The intersection of systems physiology, data science, and clinical decision tools.</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="font-mono text-crimson font-bold">—</span>
+                <span>Anatomy of physiological datasets and time-series biomedical signals.</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="font-mono text-crimson font-bold">—</span>
+                <span>Responsible AI, bias, validation rigour, and limits of algorithmic interpretation.</span>
+              </li>
+            </ul>
+          </div>
+          <div class="mt-8 pt-4 border-t border-hairline">
+            <span class="block font-mono text-[11px] uppercase tracking-wider text-slateink">Participant Outcome</span>
+            <p class="mt-1 text-sm font-semibold text-graphite">
+              Clear conceptual command of biomedical AI possibilities, data hygiene, and ethical boundaries.
+            </p>
+          </div>
+        </article>
+
+        <!-- DAY 02 -->
+        <article data-day-card="2" class="border border-hairlineDark bg-alabaster p-7 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between pb-4 border-b border-hairline">
+              <span class="font-mono text-xs font-bold uppercase tracking-wider text-crimson">DAY 02 • ANALYTICS</span>
+              <span class="font-mono text-xs text-slateink">MODULE 02</span>
+            </div>
+            <h3 class="mt-4 font-serif text-2xl font-bold text-graphite leading-snug">
+              Computational Physiology &amp; Biomedical Data
+            </h3>
+            <ul class="mt-5 space-y-3 text-sm text-slateink">
+              <li class="flex items-start gap-2.5">
+                <span class="font-mono text-crimson font-bold">—</span>
+                <span>Practical introduction to Python notebooks for biomedical data workflows.</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="font-mono text-crimson font-bold">—</span>
+                <span>Cleaning, structuring, and inspecting multi-variable physiological datasets.</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="font-mono text-crimson font-bold">—</span>
+                <span>Hands-on ECG rhythm, HRV feature extraction, and EEG signal exploration.</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="font-mono text-crimson font-bold">—</span>
+                <span>Scientific visualisation, statistical summaries, and baseline predictive models.</span>
+              </li>
+            </ul>
+          </div>
+          <div class="mt-8 pt-4 border-t border-hairline">
+            <span class="block font-mono text-[11px] uppercase tracking-wider text-slateink">Participant Outcome</span>
+            <p class="mt-1 text-sm font-semibold text-graphite">
+              Ability to load, analyse, and visualise a structured physiological dataset in Python.
+            </p>
+          </div>
+        </article>
+
+        <!-- DAY 03 -->
+        <article data-day-card="3" class="border border-hairlineDark bg-alabaster p-7 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between pb-4 border-b border-hairline">
+              <span class="font-mono text-xs font-bold uppercase tracking-wider text-crimson">DAY 03 • SYNTHESIS</span>
+              <span class="font-mono text-xs text-slateink">MODULE 03</span>
+            </div>
+            <h3 class="mt-4 font-serif text-2xl font-bold text-graphite leading-snug">
+              Building Intelligent Biomedical Applications
+            </h3>
+            <ul class="mt-5 space-y-3 text-sm text-slateink">
+              <li class="flex items-start gap-2.5">
+                <span class="font-mono text-crimson font-bold">—</span>
+                <span>Developing a guided mini AI-enabled physiological analysis application.</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="font-mono text-crimson font-bold">—</span>
+                <span>Translating physiological research questions into reproducible computational workflows.</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="font-mono text-crimson font-bold">—</span>
+                <span>Interpreting model outputs and communicating findings to scientific audiences.</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="font-mono text-crimson font-bold">—</span>
+                <span>Structuring a professional portfolio and mapping next-step research pathways.</span>
+              </li>
+            </ul>
+          </div>
+          <div class="mt-8 pt-4 border-t border-hairline">
+            <span class="block font-mono text-[11px] uppercase tracking-wider text-slateink">Participant Outcome</span>
+            <p class="mt-1 text-sm font-semibold text-graphite">
+              A completed, demonstrable mini-project ready for academic or career portfolios.
+            </p>
+          </div>
+        </article>
+      </div>
+
+      <!-- Institutional Governance & Two-Tier Participation Fee Notice -->
+      <div id="governance" class="mt-10 bg-alabaster border border-hairlineDark border-l-4 border-l-crimson p-6 sm:p-8 space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <span class="font-mono text-xs font-bold uppercase tracking-wider text-crimson">
+              INSTITUTIONAL GOVERNANCE &amp; TIERED PARTICIPATION STRUCTURE
+            </span>
+            <p class="mt-1.5 text-sm sm:text-base text-graphite leading-relaxed">
+                Complete the form below to reserve your place in the upcoming three-day AI in Physiology specialist cohort. Classes commence as soon as the minimum cohort capacity is met, you will receive your Reference ID and official payment details immediately upon submission.
+            </p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 pt-4 border-t border-hairline">
+          <div class="bg-white border border-hairlineDark border-t-2 border-t-crimson p-5">
+            <div class="flex items-center justify-between gap-2">
+              <span class="font-mono text-xs font-bold uppercase tracking-wider text-crimson">Tier 01 • Subsidised Partner Rate</span>
+              <span class="font-mono text-xs px-2 py-0.5 bg-alabaster border border-hairline text-graphite">SPAN Members</span>
+            </div>
+            <p class="mt-2 font-serif text-2xl font-bold text-graphite">₦7,500</p>
+            <p class="mt-1 text-xs sm:text-sm text-slateink leading-relaxed">
+              Concession rate reserved for verified SPAN undergraduate student members and SPAN alumni/associates under the institutional partnership agreement.
+            </p>
+          </div>
+
+          <div class="bg-white border border-hairlineDark border-t-2 border-t-graphite p-5">
+            <div class="flex items-center justify-between gap-2">
+              <span class="font-mono text-xs font-bold uppercase tracking-wider text-graphite">Tier 02 • Standard General Rate</span>
+              <span class="font-mono text-xs px-2 py-0.5 bg-alabaster border border-hairline text-slateink">Non-SPAN / General</span>
+            </div>
+            <p class="mt-2 font-serif text-2xl font-bold text-graphite">₦15,000</p>
+            <p class="mt-1 text-xs sm:text-sm text-slateink leading-relaxed">
+              Standard participation rate for non-SPAN students, graduates from allied biomedical disciplines, researchers, and independent professionals.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       SECTION 04: KEYNOTE REFERENCE MATERIAL (PDF ARCHIVE & SLIDE INDEX)
+       ===================================================================== -->
+  <section id="keynote-archive" class="py-12 sm:py-16 bg-alabaster border-b border-hairline">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="bg-white border border-hairlineDark border-t-2 border-t-graphite">
+        <!-- Main Horizontal Strip -->
+        <div class="p-6 sm:p-8 lg:p-10 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
+          <div class="space-y-3 max-w-3xl">
+            <div class="flex flex-wrap items-center gap-2.5">
+              <span class="inline-block w-2 h-2 bg-crimson"></span>
+              <span class="font-mono text-xs font-bold uppercase tracking-widest text-crimson">
+                KEYNOTE ARCHIVE • SPAN WEBINAR (22 NOV 2026)
+              </span>
+              <span class="font-mono text-xs text-slateink">
+                • 14 SLIDES • 16:9 WIDESCREEN • PDF ARCHIVE
+              </span>
+            </div>
+
+            <h2 class="font-serif text-2xl sm:text-3xl font-bold text-graphite leading-tight">
+              The Physiologist, Reimagined: From Biological Science to AI, Innovation &amp; the Future of Work
+            </h2>
+
+            <p class="text-sm sm:text-base text-slateink leading-relaxed">
+              Access the complete 14-slide institutional keynote deck delivered by <strong>Daniel Onimisi</strong> (Founder &amp; Executive Director, FSI-AIBR), covering the six career frontiers for physiologists, biomedical signal intelligence, applied prototypes, and attendee Q&amp;A frameworks.
+            </p>
+          </div>
+
+          <!-- Right Action Group -->
+          <div class="shrink-0 flex flex-col sm:flex-row lg:flex-col items-stretch sm:items-center lg:items-end gap-3">
+            <a
+              id="downloadKeynoteBtn"
+              href="/assets/The-Physiologist-Reimagined-Daniel-Onimisi.pdf"
+              download="The-Physiologist-Reimagined-Daniel-Onimisi.pdf"
+              onclick="handlePdfDownload(event)"
+              class="inline-flex items-center justify-center px-6 py-3.5 bg-graphite hover:bg-crimson text-white font-semibold text-sm transition-colors border border-graphite hover:border-crimson"
+            >
+              <svg class="w-4 h-4 mr-2.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+              </svg>
+              Download Keynote Slides (PDF)
+            </a>
+
+            <button
+              type="button"
+              id="toggleSlideIndexBtn"
+              aria-expanded="false"
+              aria-controls="slideIndexDrawer"
+              class="inline-flex items-center justify-center px-4 py-2.5 bg-alabaster hover:bg-gray-100 text-graphite font-mono text-xs font-semibold uppercase tracking-wider border border-hairlineDark transition-colors cursor-pointer"
+            >
+              <span id="toggleSlideIndexLabel">View 14-Slide Index</span>
+              <span id="toggleSlideIndexChevron" class="ml-2 font-bold">+</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Inline Non-Blocking Fallback Banner -->
+        <div id="pdfNoticeBanner" class="hidden px-6 sm:px-8 lg:px-10 py-4 bg-alabaster border-t border-hairlineDark flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <div class="text-xs sm:text-sm text-graphite leading-relaxed">
+            <span class="font-mono font-bold text-crimson uppercase mr-2">[Asset Path Notice]</span>
+            <span>
+              Place your PDF at <code class="font-mono text-xs bg-white px-1.5 py-0.5 border border-hairline">/assets/The-Physiologist-Reimagined-Daniel-Onimisi.pdf</code> (and run via a local HTTP server or Cloudflare) to enable direct one-click downloads. Submitting your Expression of Interest below also includes the deck link in your confirmation receipt.
+            </span>
+          </div>
+          <button
+            type="button"
+            id="closePdfNoticeBtn"
+            class="font-mono text-xs font-semibold text-slateink hover:text-graphite underline underline-offset-4 self-start sm:self-center shrink-0 cursor-pointer"
+          >
+            Dismiss
+          </button>
+        </div>
+
+        <!-- Expandable 14-Slide Index Drawer -->
+        <div id="slideIndexDrawer" class="hidden drawer-panel bg-alabaster border-t border-hairlineDark px-6 sm:px-8 lg:px-10 py-8">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 pb-4 border-b border-hairline">
+            <span class="font-mono text-xs font-bold uppercase tracking-widest text-graphite">
+              Keynote Deck Directory • 14 Slides
+            </span>
+            <span class="font-mono text-xs text-slateink">
+              Speaker: Daniel Onimisi • FSI-AIBR
+            </span>
+          </div>
+
+          <div class="mt-5 grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-2.5 text-sm">
+            <div class="space-y-2.5">
+              <div class="py-1.5 border-b border-hairline/80 flex items-baseline gap-3">
+                <span class="font-mono text-xs font-bold text-crimson shrink-0">01.</span>
+                <span class="text-graphite font-medium">The Physiologist, Reimagined (Opening)</span>
+              </div>
+              <div class="py-1.5 border-b border-hairline/80 flex items-baseline gap-3">
+                <span class="font-mono text-xs font-bold text-crimson shrink-0">02.</span>
+                <span class="text-graphite font-medium">What Happens After the Physiology Degree?</span>
+              </div>
+              <div class="py-1.5 border-b border-hairline/80 flex items-baseline gap-3">
+                <span class="font-mono text-xs font-bold text-crimson shrink-0">03.</span>
+                <span class="text-graphite font-medium">The Work Around Physiology Is Changing</span>
+              </div>
+              <div class="py-1.5 border-b border-hairline/80 flex items-baseline gap-3">
+                <span class="font-mono text-xs font-bold text-crimson shrink-0">04.</span>
+                <span class="text-graphite font-medium">Six Career Frontiers for Physiologists</span>
+              </div>
+              <div class="py-1.5 border-b border-hairline/80 flex items-baseline gap-3">
+                <span class="font-mono text-xs font-bold text-crimson shrink-0">05.</span>
+                <span class="text-graphite font-medium">Where Physiology Meets Artificial Intelligence</span>
+              </div>
+              <div class="py-1.5 border-b border-hairline/80 flex items-baseline gap-3">
+                <span class="font-mono text-xs font-bold text-crimson shrink-0">06.</span>
+                <span class="text-graphite font-medium">Extending Scale Without Losing Reasoning (ECG, HRV &amp; EEG)</span>
+              </div>
+              <div class="py-1.5 flex items-baseline gap-3">
+                <span class="font-mono text-xs font-bold text-crimson shrink-0">07.</span>
+                <span class="text-graphite font-medium">I Did Not Leave Physiology to Enter Technology</span>
+              </div>
+            </div>
+
+            <div class="space-y-2.5">
+              <div class="py-1.5 border-b border-hairline/80 flex items-baseline gap-3">
+                <span class="font-mono text-xs font-bold text-crimson shrink-0">08.</span>
+                <span class="text-graphite font-medium">Examples of Problems We Can Build Around</span>
+              </div>
+              <div class="py-1.5 border-b border-hairline/80 flex items-baseline gap-3">
+                <span class="font-mono text-xs font-bold text-crimson shrink-0">09.</span>
+                <span class="text-graphite font-medium">System Spotlight: Nigeria Malaria Digital Twin</span>
+              </div>
+              <div class="py-1.5 border-b border-hairline/80 flex items-baseline gap-3">
+                <span class="font-mono text-xs font-bold text-crimson shrink-0">10.</span>
+                <span class="text-graphite font-medium">FSI-AIBR Career Intelligence</span>
+              </div>
+              <div class="py-1.5 border-b border-hairline/80 flex items-baseline gap-3">
+                <span class="font-mono text-xs font-bold text-crimson shrink-0">11.</span>
+                <span class="text-graphite font-medium">Skills Differentiating the Next Generation</span>
+              </div>
+              <div class="py-1.5 border-b border-hairline/80 flex items-baseline gap-3">
+                <span class="font-mono text-xs font-bold text-crimson shrink-0">12.</span>
+                <span class="text-graphite font-medium">Proposed Training: AI in Physiology</span>
+              </div>
+              <div class="py-1.5 border-b border-hairline/80 flex items-baseline gap-3">
+                <span class="font-mono text-xs font-bold text-crimson shrink-0">13.</span>
+                <span class="text-graphite font-medium">What We Could Build Together (SPAN Collaboration)</span>
+              </div>
+              <div class="py-1.5 flex items-baseline gap-3">
+                <span class="font-mono text-xs font-bold text-crimson shrink-0">14.</span>
+                <span class="text-graphite font-medium">The Future Belongs to Those Who Build It</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       SECTION 05: EXPRESSION OF INTEREST (EOI) INTAKE PORTAL
+       ===================================================================== -->
+  <section id="eoi-portal" class="py-16 sm:py-24 bg-alabaster">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="mb-10">
+        <span class="font-mono text-xs font-bold uppercase tracking-widest text-crimson">
+          03 / Cohort 01 Intake Portal
+        </span>
+        <h2 class="mt-2 font-serif text-3xl sm:text-4xl font-bold text-graphite">
+          Expression of Interest Registration
+        </h2>
+        <p class="mt-3 text-base text-slateink leading-relaxed">
+          Complete the form below to register your interest in the proposed three-day <em>AI in Physiology</em> specialist programme. You will receive an institutional reference code and priority updates once SPAN and FSI-AIBR finalize cohort dates.
+        </p>
+      </div>
+
+      <!-- Registration Form Card -->
+      <div class="bg-white border border-hairlineDark border-t-4 border-t-crimson p-6 sm:p-10">
+        <form id="eoiForm" class="space-y-6" novalidate>
+          <!-- Inline Validation Alert Box -->
+          <div id="formErrorBox" class="hidden p-4 bg-red-50 border border-crimson text-sm text-crimsonDark font-medium"></div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div>
+              <label for="fullName" class="block text-xs font-mono font-bold uppercase tracking-wider text-graphite mb-2">
+                Full Name <span class="text-crimson">*</span>
+              </label>
+              <input
+                type="text"
+                id="fullName"
+                name="fullName"
+                required
+                placeholder="e.g., Ogbiri Chilonso"
+                class="w-full px-4 py-3 bg-alabaster border border-hairlineDark text-sm text-graphite placeholder-gray-400"
+              />
+            </div>
+
+            <div>
+              <label for="email" class="block text-xs font-mono font-bold uppercase tracking-wider text-graphite mb-2">
+                Email Address <span class="text-crimson">*</span>
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                required
+                placeholder="name@university.edu.ng"
+                class="w-full px-4 py-3 bg-alabaster border border-hairlineDark text-sm text-graphite placeholder-gray-400"
+              />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div>
+              <label for="phone" class="block text-xs font-mono font-bold uppercase tracking-wider text-graphite mb-2">
+                WhatsApp / Phone Number <span class="text-crimson">*</span>
+              </label>
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                required
+                placeholder="+234 800 000 0000"
+                class="w-full px-4 py-3 bg-alabaster border border-hairlineDark text-sm text-graphite placeholder-gray-400"
+              />
+            </div>
+
+            <div>
+              <label for="institution" class="block text-xs font-mono font-bold uppercase tracking-wider text-graphite mb-2">
+                University / Institution <span class="text-crimson">*</span>
+              </label>
+              <input
+                type="text"
+                id="institution"
+                name="institution"
+                required
+                placeholder="e.g., University of Port Harcourt"
+                class="w-full px-4 py-3 bg-alabaster border border-hairlineDark text-sm text-graphite placeholder-gray-400"
+              />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div>
+              <label for="academicStanding" class="block text-xs font-mono font-bold uppercase tracking-wider text-graphite mb-2">
+                Academic / Professional Standing <span class="text-crimson">*</span>
+              </label>
+              <select
+                id="academicStanding"
+                name="academicStanding"
+                required
+                class="w-full px-4 py-3 bg-alabaster border border-hairlineDark text-sm text-graphite"
+              >
+                <option value="">Select your current level...</option>
+                <option value="Undergraduate (100L–400L)">Undergraduate (100L–400L)</option>
+                <option value="Graduate / NYSC">Graduate / NYSC</option>
+                <option value="Postgraduate (M.Sc. / Ph.D.)">Postgraduate (M.Sc. / Ph.D.)</option>
+                <option value="Lecturer / Researcher">Lecturer / Researcher</option>
+                <option value="Healthcare / Industry Professional">Healthcare / Industry Professional</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="spanStatus" class="block text-xs font-mono font-bold uppercase tracking-wider text-graphite mb-2">
+                SPAN Membership Status <span class="text-crimson">*</span>
+              </label>
+              <select
+                id="spanStatus"
+                name="spanStatus"
+                required
+                class="w-full px-4 py-3 bg-alabaster border border-hairlineDark text-sm text-graphite"
+              >
+                <option value="">Select membership status...</option>
+                <option value="Registered SPAN Student Member">Registered SPAN Student Member (₦7,500 Tier)</option>
+                <option value="SPAN Alumni / Associate">SPAN Alumni / Associate (₦7,500 Tier)</option>
+                <option value="Non-Member / General Applicant">Non-Member / General Applicant (₦15,000 Tier)</option>
+              </select>
+              <p id="feeTierPreview" class="hidden mt-2 font-mono text-xs text-crimson font-semibold"></p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div>
+              <label for="interestTrack" class="block text-xs font-mono font-bold uppercase tracking-wider text-graphite mb-2">
+                Primary Interest Track <span class="text-crimson">*</span>
+              </label>
+              <select
+                id="interestTrack"
+                name="interestTrack"
+                required
+                class="w-full px-4 py-3 bg-alabaster border border-hairlineDark text-sm text-graphite"
+              >
+                <option value="">Select primary focus area...</option>
+                <option value="Biomedical Signal Processing (ECG/EEG)">Biomedical Signal Processing (ECG/EEG)</option>
+                <option value="Health Data Analytics & Python">Health Data Analytics &amp; Python</option>
+                <option value="Digital Health Systems & AI">Digital Health Systems &amp; AI</option>
+                <option value="Epidemiological & Computational Modelling">Epidemiological &amp; Computational Modelling</option>
+                <option value="Health-Tech Entrepreneurship">Health-Tech Entrepreneurship</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="priorExperience" class="block text-xs font-mono font-bold uppercase tracking-wider text-graphite mb-2">
+                Prior Coding / Data Experience <span class="text-crimson">*</span>
+              </label>
+              <select
+                id="priorExperience"
+                name="priorExperience"
+                required
+                class="w-full px-4 py-3 bg-alabaster border border-hairlineDark text-sm text-graphite"
+              >
+                <option value="">Select experience level...</option>
+                <option value="None — Complete Beginner">None — Complete Beginner</option>
+                <option value="Basic Excel / SPSS">Basic Excel / SPSS</option>
+                <option value="Introductory Python / R">Introductory Python / R</option>
+                <option value="Intermediate">Intermediate</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label for="learningGoal" class="block text-xs font-mono font-bold uppercase tracking-wider text-graphite mb-2">
+              Brief Motivation / Background Note <span class="text-slateink font-normal">(Optional)</span>
+            </label>
+            <textarea
+              id="learningGoal"
+              name="learningGoal"
+              rows="3"
+              placeholder="Briefly share your physiological background, dataset of interest, or career goal..."
+              class="w-full px-4 py-3 bg-alabaster border border-hairlineDark text-sm text-graphite placeholder-gray-400"
+            ></textarea>
+          </div>
+
+          <div class="pt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-t border-hairline">
+            <p class="text-xs text-slateink">
+              No payment is collected at this stage. Applicable fee (<strong>₦7,500 SPAN</strong> / <strong>₦15,000 Non-SPAN</strong>) applies only upon formal cohort confirmation.
+            </p>
+            <button
+              type="submit"
+              id="submitEoiBtn"
+              class="px-7 py-3.5 bg-crimson hover:bg-crimsonDark text-white font-semibold text-sm tracking-wide transition-colors shrink-0 cursor-pointer"
+            >
+              Submit Expression of Interest →
+            </button>
+          </div>
+        </form>
+
+        <!-- Post-Submission Official Confirmation Receipt -->
+        <div id="eoiReceipt" class="hidden space-y-6">
+          <div class="pb-5 border-b border-hairlineDark flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <span class="font-mono text-xs font-bold uppercase tracking-wider text-crimson">
+                EXPRESSION OF INTEREST RECORDED
+              </span>
+              <h3 class="mt-1 font-serif text-2xl sm:text-3xl font-bold text-graphite">
+                Priority Notification Confirmed
+              </h3>
+            </div>
+            <div class="px-3.5 py-2 bg-alabaster border border-hairlineDark font-mono text-xs">
+              <span class="text-slateink block">REFERENCE ID</span>
+              <span id="receiptReferenceId" class="font-bold text-graphite text-sm">FSI-SPAN-2026-0000</span>
+            </div>
+          </div>
+
+          <p class="text-sm sm:text-base text-slateink leading-relaxed">
+            Thank you, <strong id="receiptName" class="text-graphite">Participant</strong>. Your details (<span id="receiptEmail" class="font-mono text-xs text-graphite"></span>) have been logged for the <strong>AI in Physiology</strong> specialist cohort under the <strong id="receiptTrack" class="text-graphite"></strong> track (<span id="receiptFeeTier" class="font-mono text-xs font-bold text-crimson"></span>).
+          </p>
+
+          <div class="pt-4 border-t border-hairline flex flex-wrap items-center gap-3">
+            <a
+              href="https://taupe-arithmetic-81e5a2.netlify.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center justify-center px-5 py-3 bg-graphite hover:bg-crimson text-white text-sm font-semibold transition-colors"
+            >
+              Explore Career Intelligence Platform ↗
+            </a>
+            <button
+              type="button"
+              onclick="handlePdfDownload(event)"
+              class="inline-flex items-center justify-center px-5 py-3 bg-alabaster hover:bg-gray-100 text-graphite border border-hairlineDark text-sm font-semibold transition-colors cursor-pointer"
+            >
+              Download Keynote Slides (PDF) ↓
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       ADMIN MODAL: GOOGLE APPS SCRIPT (Code.gs) DEPLOYMENT BLUEPRINT
+       ===================================================================== -->
+  <div id="adminAppsScriptModal" class="hidden fixed inset-0 z-50 bg-black/70 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white border border-hairlineDark max-w-3xl w-full max-h-[88vh] flex flex-col">
+      <div class="px-6 py-4 bg-graphite text-white flex items-center justify-between">
+        <div>
+          <span class="font-mono text-[11px] uppercase tracking-wider text-red-300">BACKEND AUTOMATION BLUEPRINT</span>
+          <h3 class="font-serif text-xl font-bold">Google Apps Script (<code class="font-mono text-base">Code.gs</code>)</h3>
+        </div>
+        <button id="closeAdminModalBtn" type="button" class="text-gray-300 hover:text-white font-mono text-sm px-2 py-1 border border-white/20 cursor-pointer">
+          Close ✕
+        </button>
+      </div>
+
+      <div class="p-6 overflow-y-auto space-y-4 text-sm text-graphite">
+        <div class="bg-alabaster border border-hairlineDark p-4 space-y-2 text-xs leading-relaxed">
+          <p class="font-bold uppercase font-mono text-crimson">Deployment Instructions (4 Steps):</p>
+          <ol class="list-decimal list-inside space-y-1.5 text-slateink">
+            <li>Create a new Google Sheet named <strong>FSI-AIBR_SPAN_EOI_2026</strong> and open <em>Extensions → Apps Script</em>.</li>
+            <li>Paste the production <code class="font-mono text-xs bg-white px-1 py-0.5 border border-hairline">Code.gs</code> script below and save the project.</li>
+            <li>Click <em>Deploy → New deployment → Web app</em> (Execute as: <strong>Me</strong>, Who has access: <strong>Anyone</strong>).</li>
+            <li>Copy the generated Web App URL and assign it to <code class="font-mono text-xs bg-white px-1 py-0.5 border border-hairline">APPS_SCRIPT_URL</code> at the top of the script block in this HTML file.</li>
+          </ol>
+        </div>
+
+        <div class="flex items-center justify-between">
+          <span class="font-mono text-xs font-bold uppercase text-slateink">Production Code.gs</span>
+          <button id="copyAppsScriptBtn" type="button" class="px-3.5 py-1.5 bg-crimson hover:bg-crimsonDark text-white font-mono text-xs font-semibold transition-colors cursor-pointer">
+            Copy Code.gs
+          </button>
+        </div>
+
+        <pre id="appsScriptCode" class="bg-graphite text-gray-200 p-4 font-mono text-xs overflow-x-auto leading-relaxed border border-charcoal">const SHEET_NAME = 'EOI_Submissions';
+const CAREER_PORTAL_URL = 'https://taupe-arithmetic-81e5a2.netlify.app/';
+const INSTITUTE_URL = 'https://www.fsi-aibr.org/';
+const KEYNOTE_PDF_URL = 'https://www.fsi-aibr.org/assets/The-Physiologist-Reimagined-Daniel-Onimisi.pdf';
+
+function doPost(e) {
+  try {
+    const data = JSON.parse(e.postData.contents);
+    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    let sheet = ss.getSheetByName(SHEET_NAME);
+
+    if (!sheet) {
+      sheet = ss.insertSheet(SHEET_NAME);
+      sheet.appendRow([
+        'Reference ID',
+        'Timestamp (WAT)',
+        'Full Name',
+        'Email',
+        'Phone / WhatsApp',
+        'Institution',
+        'Academic Standing',
+        'SPAN Status',
+        'Applicable Fee Tier',
+        'Primary Interest Track',
+        'Prior Coding Experience',
+        'Motivation Note'
+      ]);
+      sheet.getRange(1, 1, 1, 12).setFontWeight('bold');
+    }
+
+    // Deduplicate by email address
+    const existingData = sheet.getDataRange().getValues();
+    const submittedEmail = String(data.email || '').trim().toLowerCase();
+    for (let i = 1; i < existingData.length; i++) {
+      if (String(existingData[i][3] || '').trim().toLowerCase() === submittedEmail) {
+        return ContentService.createTextOutput(
+          JSON.stringify({ status: 'duplicate', referenceId: existingData[i][0] })
+        ).setMimeType(ContentService.MimeType.JSON);
+      }
+    }
+
+    sheet.appendRow([
+      data.referenceId,
+      new Date(),
+      data.fullName,
+      submittedEmail,
+      data.phone,
+      data.institution,
+      data.academicStanding,
+      data.spanStatus,
+      data.feeTier || '',
+      data.interestTrack,
+      data.priorExperience,
+      data.learningGoal || ''
+    ]);
+
+    sendInstitutionalConfirmationEmail(data);
+
+    return ContentService.createTextOutput(
+      JSON.stringify({ status: 'success', referenceId: data.referenceId })
+    ).setMimeType(ContentService.MimeType.JSON);
+  } catch (err) {
+    return ContentService.createTextOutput(
+      JSON.stringify({ status: 'error', message: err.toString() })
+    ).setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+function sendInstitutionalConfirmationEmail(data) {
+  const subject = `[FSI-AIBR] Expression of Interest Recorded — ${data.referenceId}`;
+  const htmlBody = `
+    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #171A1D; border: 1px solid #DCD9D0;">
+      <div style="background: #171A1D; color: #FAF9F6; padding: 24px; border-bottom: 3px solid #9E1B32;">
+        <div style="font-size: 11px; letter-spacing: 1.5px; color: #F87171; text-transform: uppercase;">FSI-AIBR × SPAN Specialist Training</div>
+        <h2 style="margin: 8px 0 0 0; font-size: 20px;">AI in Physiology: Expression of Interest Recorded</h2>
+      </div>
+      <div style="padding: 24px; background: #FAF9F6; line-height: 1.6; font-size: 14px;">
+        <p>Dear <strong>${data.fullName}</strong>,</p>
+        <p>Thank you for registering your interest in the proposed three-day specialist programme: <em>AI in Physiology: From Physiological Data to Intelligent Biomedical Applications</em>.</p>
+        <div style="background: #FFFFFF; border: 1px solid #DCD9D0; padding: 14px; margin: 18px 0;">
+          <div><strong>Reference ID:</strong> ${data.referenceId}</div>
+          <div><strong>Institution:</strong> ${data.institution}</div>
+          <div><strong>Applicable Fee Tier:</strong> ${data.feeTier || 'Pending Verification'}</div>
+          <div><strong>Selected Track:</strong> ${data.interestTrack}</div>
+        </div>
+        <p>While cohort dates and SPAN collaboration arrangements are finalized, you can explore career pathways and review the webinar keynote deck:</p>
+        <p>
+          • <strong>Career Intelligence Platform:</strong> <a href="${CAREER_PORTAL_URL}">${CAREER_PORTAL_URL}</a><br/>
+          • <strong>Keynote Slides (PDF):</strong> <a href="${KEYNOTE_PDF_URL}">Download Presentation Deck</a>
+        </p>
+        <p style="margin-top: 24px;">Best regards,<br/>
+        <strong>Daniel Onimisi</strong><br/>
+        Founder &amp; Executive Director, FSI-AIBR<br/>
+        <a href="mailto:daniel@fsi-aibr.org">daniel@fsi-aibr.org</a> • +234 703 070 9203<br/>
+        <a href="${INSTITUTE_URL}">${INSTITUTE_URL}</a></p>
+      </div>
+    </div>
+  `;
+
+  MailApp.sendEmail({
+    to: data.email,
+    replyTo: 'daniel@fsi-aibr.org',
+    subject: subject,
+    htmlBody: htmlBody
+  });
+}</pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       INSTITUTIONAL FOOTER
+       ===================================================================== -->
+  <footer class="bg-graphite text-gray-300 border-t border-charcoal">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 pb-10 border-b border-white/10">
+        <!-- Brand & Emblem Identity -->
+        <div class="lg:col-span-6 flex items-start gap-4">
+          <div class="w-14 h-14 rounded-full overflow-hidden shrink-0 flex items-center justify-center bg-[#0B2239] border border-white/25">
+            <img
+              data-fsi-logo
+              src="/assets/fsi_logo.png"
+              alt="FSI-AIBR Official Emblem"
+              class="w-full h-full object-cover"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+            />
+            <svg viewBox="0 0 120 120" class="w-full h-full hidden" aria-label="FSI-AIBR Circular Emblem">
+              <circle cx="60" cy="60" r="58" fill="#0B2239" stroke="#CBD5E1" stroke-width="3" />
+              <circle cx="60" cy="52" r="40" fill="#F8FAFC" />
+              <path d="M53 16 C68 28, 46 42, 62 56 C72 65, 50 76, 60 88" fill="none" stroke="#2D6A4F" stroke-width="4.5" stroke-linecap="round" />
+              <path d="M67 16 C52 28, 74 42, 58 56 C48 65, 70 76, 60 88" fill="none" stroke="#0F2942" stroke-width="4.5" stroke-linecap="round" />
+              <path d="M12 78 H108 A52 52 0 0 1 12 78 Z" fill="#DCE3E8" />
+              <text x="60" y="95" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-weight="700" font-size="14" fill="#0F172A">FSAI-BR</text>
+            </svg>
+          </div>
+          <div>
+            <span class="font-mono text-xs font-bold uppercase tracking-widest text-red-300">
+              FSI-AIBR
+            </span>
+            <h3 class="mt-1 font-serif text-xl font-bold text-white">
+              Femi Samson Institute of Artificial Intelligence &amp; Biomedical Research
+            </h3>
+            <p class="mt-2 text-sm text-gray-400 leading-relaxed max-w-xl">
+              Advancing the intersection of biological science, computational intelligence, biomedical engineering, and digital health innovation.
+            </p>
+          </div>
+        </div>
+
+        <!-- Direct Correspondence & Ecosystem Links -->
+        <div class="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-8">
+          <div>
+            <span class="block font-mono text-xs font-bold uppercase tracking-wider text-white mb-3">
+              Direct Institutional Correspondence
+            </span>
+            <div class="space-y-2 text-sm">
+              <p class="text-gray-300 font-medium">Daniel Onimisi</p>
+              <p class="text-xs text-gray-400">Founder &amp; Executive Director, FSI-AIBR</p>
+              <div class="pt-1 flex flex-wrap items-center gap-2">
+                <a href="mailto:daniel@fsi-aibr.org" class="font-mono text-xs text-red-300 hover:text-white underline underline-offset-4">
+                  daniel@fsi-aibr.org
+                </a>
+                <button
+                  type="button"
+                  id="copyEmailBtn"
+                  class="px-2 py-0.5 bg-white/10 hover:bg-white/20 text-white font-mono text-[11px] border border-white/15 transition-colors cursor-pointer"
+                >
+                  Copy
+                </button>
+              </div>
+              <p class="font-mono text-xs text-gray-400 pt-1">+234 703 070 9203</p>
+            </div>
+          </div>
+
+          <div>
+            <span class="block font-mono text-xs font-bold uppercase tracking-wider text-white mb-3">
+              Ecosystem &amp; Resources
+            </span>
+            <ul class="space-y-2 text-sm">
+              <li>
+                <a href="https://www.fsi-aibr.org/" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">
+                  FSI-AIBR Main Portal ↗
+                </a>
+              </li>
+              <li>
+                <a href="https://taupe-arithmetic-81e5a2.netlify.app/" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">
+                  Career Intelligence Platform ↗
+                </a>
+              </li>
+              <li>
+                <a href="#keynote-archive" class="hover:text-white transition-colors">
+                  SPAN Keynote PDF Archive
+                </a>
+              </li>
+              <li>
+                <button id="openAdminModalBtn" type="button" class="font-mono text-xs text-gray-400 hover:text-red-300 transition-colors cursor-pointer">
+                  [Admin: Apps Script Setup]
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-gray-500">
+        <span>© 2026 Femi Samson Institute of Artificial Intelligence &amp; Biomedical Research (FSI-AIBR).</span>
+        <span>SPAN Collaboration Proposal • Cohort 01</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- =====================================================================
+       JAVASCRIPT: INTERACTIVE CONTROLS, KEYNOTE PDF HANDLER & EOI LOGIC
+       ===================================================================== -->
+  <script>
+    // Root-Relative Asset & Deployment Configuration
+    const LOGO_URL = '/assets/fsi_logo.png';
+    const KEYNOTE_PDF_URL = '/assets/The-Physiologist-Reimagined-Daniel-Onimisi.pdf';
+    const KEYNOTE_PDF_FILENAME = 'The-Physiologist-Reimagined-Daniel-Onimisi.pdf';
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyrMfNtg81nYmtBV6Dky5e4qjzJzKlZ-uxsHjUsX9upRg8KLXmxoVluFBTYtvDyTkEj3g/exec';
+
+    // Apply configured root-relative logo path to all emblem images
+    document.querySelectorAll('img[data-fsi-logo]').forEach((img) => {
+      img.setAttribute('src', LOGO_URL);
+    });
+
+    // 1. Mobile Navigation Drawer Toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenuDrawer = document.getElementById('mobileMenuDrawer');
+    if (mobileMenuBtn && mobileMenuDrawer) {
+      mobileMenuBtn.addEventListener('click', () => {
+        mobileMenuDrawer.classList.toggle('hidden');
+      });
+    }
+
+    // 2. Keynote PDF Download Handler with Live /assets/ Verification
+    const downloadKeynoteBtn = document.getElementById('downloadKeynoteBtn');
+    const pdfNoticeBanner = document.getElementById('pdfNoticeBanner');
+    const closePdfNoticeBtn = document.getElementById('closePdfNoticeBtn');
+
+    if (downloadKeynoteBtn) {
+      downloadKeynoteBtn.setAttribute('href', KEYNOTE_PDF_URL);
+      downloadKeynoteBtn.setAttribute('download', KEYNOTE_PDF_FILENAME);
+    }
+
+    function triggerCleanPdfDownload() {
+      const tempLink = document.createElement('a');
+      tempLink.href = KEYNOTE_PDF_URL;
+      tempLink.download = KEYNOTE_PDF_FILENAME;
+      document.body.appendChild(tempLink);
+      tempLink.click();
+      document.body.removeChild(tempLink);
+    }
+
+    async function handlePdfDownload(event) {
+      if (event) event.preventDefault();
+      const archiveSection = document.getElementById('keynote-archive');
+
+      // Detect sandboxed preview or local file:// protocol where root-relative /assets/ is unmounted
+      if (window.location.protocol === 'blob:' || window.location.protocol === 'data:' || window.location.protocol === 'file:' || window.location.hostname === '') {
+        if (pdfNoticeBanner) pdfNoticeBanner.classList.remove('hidden');
+        if (archiveSection) archiveSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+
+      try {
+        let res = await fetch(KEYNOTE_PDF_URL, { method: 'HEAD' });
+        if (!res.ok) {
+          res = await fetch(KEYNOTE_PDF_URL, { method: 'GET' });
+        }
+
+        const contentType = (res.headers.get('content-type') || '').toLowerCase();
+        // Ensure the server returned a real PDF rather than a SPA HTML fallback page
+        if (res.ok && !contentType.includes('text/html')) {
+          if (pdfNoticeBanner) pdfNoticeBanner.classList.add('hidden');
+          triggerCleanPdfDownload();
+        } else {
+          if (pdfNoticeBanner) pdfNoticeBanner.classList.remove('hidden');
+          if (archiveSection) archiveSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      } catch (err) {
+        if (pdfNoticeBanner) pdfNoticeBanner.classList.remove('hidden');
+        if (archiveSection) archiveSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
+
+    if (closePdfNoticeBtn && pdfNoticeBanner) {
+      closePdfNoticeBtn.addEventListener('click', () => {
+        pdfNoticeBanner.classList.add('hidden');
+      });
+    }
+
+    // 3. Expression of Interest Form Submission Handler & Dynamic Fee Tier Preview
+    const eoiForm = document.getElementById('eoiForm');
+    const spanStatusSelect = document.getElementById('spanStatus');
+    const feeTierPreview = document.getElementById('feeTierPreview');
+
+    function resolveFeeTier(spanStatusValue) {
+      if (!spanStatusValue) return '';
+      if (spanStatusValue.includes('SPAN Student') || spanStatusValue.includes('SPAN Alumni')) {
+        return 'SPAN Partner Rate — ₦7,500';
+      }
+      return 'Non-SPAN General Rate — ₦15,000';
+    }
+
+    if (spanStatusSelect && feeTierPreview) {
+      spanStatusSelect.addEventListener('change', () => {
+        const tierLabel = resolveFeeTier(spanStatusSelect.value);
+        if (tierLabel) {
+          feeTierPreview.textContent = `Applicable Fee: ${tierLabel}`;
+          feeTierPreview.classList.remove('hidden');
+        } else {
+          feeTierPreview.classList.add('hidden');
+        }
+      });
+    }
+
+    if (eoiForm) {
+      eoiForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const submitEoiBtn = document.getElementById('submitEoiBtn');
+        const formErrorBox = document.getElementById('formErrorBox');
+
+        if (formErrorBox) {
+          formErrorBox.classList.add('hidden');
+          formErrorBox.textContent = '';
+        }
+
+        const formData = new FormData(eoiForm);
+        const fullName = String(formData.get('fullName') || '').trim();
+        const email = String(formData.get('email') || '').trim();
+        const normalizedEmail = email.toLowerCase();
+        const phone = String(formData.get('phone') || '').trim();
+        const institution = String(formData.get('institution') || '').trim();
+        const academicStanding = String(formData.get('academicStanding') || '').trim();
+        const spanStatus = String(formData.get('spanStatus') || '').trim();
+        const feeTier = resolveFeeTier(spanStatus);
+        const interestTrack = String(formData.get('interestTrack') || '').trim();
+        const priorExperience = String(formData.get('priorExperience') || '').trim();
+        const learningGoal = String(formData.get('learningGoal') || '').trim();
+
+        if (!fullName || !normalizedEmail || !institution || !academicStanding || !spanStatus || !interestTrack || !priorExperience) {
+          if (formErrorBox) {
+            formErrorBox.textContent = 'Please complete all required fields marked with * before submitting.';
+            formErrorBox.classList.remove('hidden');
+          }
+          return;
+        }
+
+        let storedRecords = {};
+        try {
+          storedRecords = JSON.parse(localStorage.getItem('fsi_span_eoi_records') || '{}');
+        } catch (storageErr) {
+          storedRecords = {};
+        }
+
+        if (storedRecords[normalizedEmail]) {
+          displayReceipt(storedRecords[normalizedEmail]);
+          return;
+        }
+
+        const randomDigits = Math.floor(1000 + Math.random() * 9000);
+        const payload = {
+          referenceId: `FSI-SPAN-2026-${randomDigits}`,
+          submittedAt: new Date().toISOString(),
+          fullName,
+          email: normalizedEmail,
+          phone,
+          institution,
+          academicStanding,
+          spanStatus,
+          feeTier,
+          interestTrack,
+          priorExperience,
+          learningGoal,
+        };
+
+        if (submitEoiBtn) {
+          submitEoiBtn.disabled = true;
+          submitEoiBtn.textContent = 'Recording Submission...';
+        }
+
+        try {
+          if (APPS_SCRIPT_URL && APPS_SCRIPT_URL.trim() !== '' && APPS_SCRIPT_URL !== 'xxxxxxx') {
+            await fetch(APPS_SCRIPT_URL, {
+              method: 'POST',
+              mode: 'no-cors',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(payload),
+            });
+          }
+
+          storedRecords[normalizedEmail] = payload;
+          localStorage.setItem('fsi_span_eoi_records', JSON.stringify(storedRecords));
+          displayReceipt(payload);
+        } catch (err) {
+          if (formErrorBox) {
+            formErrorBox.textContent = 'Unable to record submission at this moment. Please verify your connection and try again.';
+            formErrorBox.classList.remove('hidden');
+          }
+        } finally {
+          if (submitEoiBtn) {
+            submitEoiBtn.disabled = false;
+            submitEoiBtn.textContent = 'Submit Expression of Interest →';
+          }
+        }
+      });
+    }
+
+    function displayReceipt(record) {
+      const receiptPanel = document.getElementById('eoiReceipt');
+      const refEl = document.getElementById('receiptReferenceId');
+      const nameEl = document.getElementById('receiptName');
+      const emailEl = document.getElementById('receiptEmail');
+      const trackEl = document.getElementById('receiptTrack');
+      const feeTierEl = document.getElementById('receiptFeeTier');
+
+      if (refEl) refEl.textContent = record.referenceId;
+      if (nameEl) nameEl.textContent = record.fullName;
+      if (emailEl) emailEl.textContent = record.email;
+      if (trackEl) trackEl.textContent = record.interestTrack;
+      if (feeTierEl) feeTierEl.textContent = record.feeTier || resolveFeeTier(record.spanStatus || '');
+
+      if (eoiForm) eoiForm.classList.add('hidden');
+      if (receiptPanel) {
+        receiptPanel.classList.remove('hidden');
+        receiptPanel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
+
+    // 4. Expandable 14-Slide Index Drawer Toggle
+    const toggleSlideIndexBtn = document.getElementById('toggleSlideIndexBtn');
+    const slideIndexDrawer = document.getElementById('slideIndexDrawer');
+    const toggleSlideIndexLabel = document.getElementById('toggleSlideIndexLabel');
+    const toggleSlideIndexChevron = document.getElementById('toggleSlideIndexChevron');
+
+    if (toggleSlideIndexBtn && slideIndexDrawer) {
+      toggleSlideIndexBtn.addEventListener('click', () => {
+        const isHidden = slideIndexDrawer.classList.toggle('hidden');
+        toggleSlideIndexBtn.setAttribute('aria-expanded', String(!isHidden));
+        if (toggleSlideIndexLabel) {
+          toggleSlideIndexLabel.textContent = isHidden ? 'View 14-Slide Index' : 'Hide 14-Slide Index';
+        }
+        if (toggleSlideIndexChevron) {
+          toggleSlideIndexChevron.textContent = isHidden ? '+' : '−';
+        }
+      });
+    }
+
+    // 5. Interactive 3-Day Curriculum Day-Filter Tabs
+    document.querySelectorAll('[data-day-filter]').forEach((tabBtn) => {
+      tabBtn.addEventListener('click', () => {
+        const selectedDay = tabBtn.getAttribute('data-day-filter');
+
+        document.querySelectorAll('[data-day-filter]').forEach((btn) => {
+          const isActive = btn === tabBtn;
+          btn.setAttribute('aria-pressed', String(isActive));
+          btn.classList.toggle('bg-graphite', isActive);
+          btn.classList.toggle('text-white', isActive);
+          btn.classList.toggle('bg-white', !isActive);
+          btn.classList.toggle('text-graphite', !isActive);
+        });
+
+        document.querySelectorAll('[data-day-card]').forEach((card) => {
+          const cardDay = card.getAttribute('data-day-card');
+          if (selectedDay === 'all' || cardDay === selectedDay) {
+            card.classList.remove('hidden');
+          } else {
+            card.classList.add('hidden');
+          }
+        });
+      });
+    });
+
+    // 6. Admin Apps Script Setup Modal & Copy Helpers
+    const openAdminModalBtn = document.getElementById('openAdminModalBtn');
+    const closeAdminModalBtn = document.getElementById('closeAdminModalBtn');
+    const adminModal = document.getElementById('adminAppsScriptModal');
+    const copyAppsScriptBtn = document.getElementById('copyAppsScriptBtn');
+    const appsScriptCodeEl = document.getElementById('appsScriptCode');
+    const copyEmailBtn = document.getElementById('copyEmailBtn');
+
+    if (openAdminModalBtn && adminModal) {
+      openAdminModalBtn.addEventListener('click', () => {
+        adminModal.classList.remove('hidden');
+      });
+    }
+
+    if (closeAdminModalBtn && adminModal) {
+      closeAdminModalBtn.addEventListener('click', () => {
+        adminModal.classList.add('hidden');
+      });
+    }
+
+    if (adminModal) {
+      adminModal.addEventListener('click', (event) => {
+        if (event.target === adminModal) {
+          adminModal.classList.add('hidden');
+        }
+      });
+    }
+
+    function fallbackCopyText(text, buttonEl, successLabel) {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      textarea.focus();
+      textarea.select();
+      try {
+        document.execCommand('copy');
+        if (buttonEl) {
+          const originalText = buttonEl.textContent;
+          buttonEl.textContent = successLabel;
+          setTimeout(() => {
+            buttonEl.textContent = originalText;
+          }, 2200);
+        }
+      } catch (copyErr) {
+        // Ignore clipboard errors in restricted frames
+      }
+      document.body.removeChild(textarea);
+    }
+
+    if (copyAppsScriptBtn && appsScriptCodeEl) {
+      copyAppsScriptBtn.addEventListener('click', () => {
+        fallbackCopyText(appsScriptCodeEl.textContent || '', copyAppsScriptBtn, 'Copied Code.gs ✓');
+      });
+    }
+
+    if (copyEmailBtn) {
+      copyEmailBtn.addEventListener('click', () => {
+        fallbackCopyText('daniel@fsi-aibr.org', copyEmailBtn, 'Copied ✓');
+      });
+    }
+  </script>
+</body>
+</html>
